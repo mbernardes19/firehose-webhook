@@ -1,0 +1,35 @@
+{
+  "name": "firehose",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "npx tsc",
+    "start": "node ./dist/index2.js",
+    "dev": "ts-node index.ts",
+    "docker:build": "docker buildx build --platform linux/amd64 -t firehose .",
+    "docker:run": "docker run --platform linux/amd64 --env-file .env firehose",
+    "docker:push": "npm run docker:build && docker tag firehose:latest 641120096525.dkr.ecr.us-east-1.amazonaws.com/firehose:latest && docker push 641120096525.dkr.ecr.us-east-1.amazonaws.com/firehose:latest",
+    "docker:login": "aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 641120096525.dkr.ecr.us-east-1.amazonaws.com",
+    "docker": "npm run docker:build && npm run docker:run"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.4"
+  },
+  "dependencies": {
+    "@atproto/api": "^0.13.6",
+    "@atproto/identity": "^0.4.1",
+    "@atproto/lexicon": "^0.4.1",
+    "@atproto/sync": "^0.1.0",
+    "@aws-sdk/client-dynamodb": "^3.645.0",
+    "@aws-sdk/lib-dynamodb": "^3.645.0",
+    "@skyware/firehose": "^0.3.1",
+    "atproto-firehose": "^0.2.2",
+    "dotenv": "^16.4.5"
+  }
+}
