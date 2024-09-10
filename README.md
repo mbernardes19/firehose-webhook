@@ -9,6 +9,39 @@ It also persists the latest cursor value in case of an error. Then, when the lis
 
 To communicate with the DB we use the [DynamoDB client](https://www.npmjs.com/package/@aws-sdk/client-dynamodb).
 
+### Sample request body that gets sent to webhook as a POST
+```
+{
+  "action": "create",
+  "path": "app.bsky.feed.post/3l3seo55pbh24",
+  "cid": ...,
+  "record": {
+    "text": "@handle.bsky.social test",
+    "$type": "app.bsky.feed.post",
+    "langs": [
+      "en"
+    ],
+    "facets": [
+      {
+        "$type": "app.bsky.richtext.facet",
+        "index": {
+          "byteEnd": 28,
+          "byteStart": 0
+        },
+        "features": [
+          {
+            "did": "did:plc:7qnf6kxpgvzp57gzz3vbflt6",
+            "$type": "app.bsky.richtext.facet#mention"
+          }
+        ]
+      }
+    ],
+    "createdAt": "2024-09-10T12:03:09.403Z"
+  },
+  "uri": "at://did:plc:vzwb6a6lqj5flfcneiyx6a6j/app.bsky.feed.post/3l3seo55pbh24"
+}
+```
+
 ## Deployment Setup
 The recommended deployment setup is to deploy the service on AWS ECS (Fargate) and utilize AWS Dynamo DB to persist the cursor.
 
